@@ -86,9 +86,9 @@ def get_sunrise_sunset(jd: float, lat: float, lon: float, tz_str: str):
     set_str = jd_to_datetime(sett, tz_str).strftime("%I:%M %p") if sett > 0 else "N/A"
     return rise_str, set_str
 
-def jd_to_datetime(jd: float, tz_str: str):
-    y, m, d, ut = swe.jdut1_to_utc(jd, swe.UTC)
-    dt = datetime(y, m, d, int(ut), int((ut - int(ut))*60))
+def jd_to_datetime(jd: float, tz_str: str) -> datetime:
+    y, m, d, ut = swe.jdut1_to_utc(jd, 1)
+    dt = datetime(y, m, d, int(ut), int((ut - int(ut)) * 60))
     return pytz.timezone(tz_str).fromutc(dt)
 
 def house_of(lon: float, lagna_lon: float) -> int:
