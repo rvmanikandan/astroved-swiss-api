@@ -1,7 +1,12 @@
 FROM python:3.12-slim
 
-# Fix the libsqlite3 error permanently
-RUN apt-get update && apt-get install -y libsqlite3-0 && rm -rf /var/lib/apt/lists/*
+# Install build tools + sqlite3 + clean up in one layer (small image)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    gcc \
+    libsqlite3-0 \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
